@@ -1,25 +1,39 @@
 public class Problem1 {
 
-    // ---------- Problem 1: Exam Hall Seat Duplication Checker ----------
-    public static void checkDuplicateSeats(int[] seatNumbers) {
-        boolean foundDuplicate = false;
-        boolean[] alreadyPrinted = new boolean[seatNumbers.length];
+    static void checkDuplicateSeats(int[] seatNumbers) {
+        boolean found = false;
 
         for (int i = 0; i < seatNumbers.length; i++) {
-            if (alreadyPrinted[i]) continue;
+            boolean alreadyPrinted = false;
+
+            for (int k = 0; k < i; k++) {
+                if (seatNumbers[i] == seatNumbers[k]) {
+                    alreadyPrinted = true;
+                    break;
+                }
+            }
+
+            if (alreadyPrinted)
+                continue;
 
             for (int j = i + 1; j < seatNumbers.length; j++) {
                 if (seatNumbers[i] == seatNumbers[j]) {
                     System.out.println("Duplicate Seat Number Found: " + seatNumbers[i]);
-                    foundDuplicate = true;
-                    alreadyPrinted[j] = true;
+                    found = true;
                     break;
                 }
             }
         }
 
-        if (!foundDuplicate) {
+        if (!found) {
             System.out.println("No Duplicate Seats Found");
         }
+    }
+
+    public static void main(String[] args) {
+
+        int[] seats = {101, 102, 103, 102, 105};
+
+        checkDuplicateSeats(seats);
     }
 }
