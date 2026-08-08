@@ -1,39 +1,39 @@
-// ---------- Problem 2: Typing Speed Test Accuracy Checker ----------
 public class Problem2 {
 
-    public static void checkTypingAccuracy(String original, String typed) {
+    static void checkTypingAccuracy(String original, String typed) {
 
-        if (original.length() != typed.length()) {
-            System.out.println("Error: Strings must be of equal length");
-            return;
-        }
-
-        int total = original.length();
         int matched = 0;
-        int firstMismatchPos = -1;
+        int firstMismatch = -1;
 
-        for (int i = 0; i < total; i++) {
+        for (int i = 0; i < original.length(); i++) {
+
             if (original.charAt(i) == typed.charAt(i)) {
                 matched++;
-            } else if (firstMismatchPos == -1) {
-                firstMismatchPos = i;
+            } else if (firstMismatch == -1) {
+                firstMismatch = i;
             }
         }
 
-        double accuracy = ((double) matched / total) * 100;
+        double accuracy = (matched * 100.0) / original.length();
 
-        StringBuilder result = new StringBuilder();
-        result.append("Matched: ").append(matched).append("/").append(total)
-              .append(" | Accuracy: ").append(String.format("%.2f", accuracy)).append("%");
+        System.out.printf("Matched: %d/%d%n", matched, original.length());
+        System.out.printf("Accuracy: %.2f%%%n", accuracy);
 
-        if (firstMismatchPos == -1) {
-            result.append(" | No Mismatches");
+        if (firstMismatch == -1) {
+            System.out.println("No Mismatches");
         } else {
-            result.append(" | First Mismatch at position ").append(firstMismatchPos + 1)
-                  .append(" ('").append(original.charAt(firstMismatchPos)).append("' vs '")
-                  .append(typed.charAt(firstMismatchPos)).append("')");
+            System.out.println("First Mismatch at position "
+                    + (firstMismatch + 1)
+                    + " ('" + original.charAt(firstMismatch)
+                    + "' vs '" + typed.charAt(firstMismatch) + "')");
         }
+    }
 
-        System.out.println(result);
+    public static void main(String[] args) {
+
+        String original = "hello world";
+        String typed = "hello worlt";
+
+        checkTypingAccuracy(original, typed);
     }
 }
