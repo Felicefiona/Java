@@ -1,30 +1,31 @@
-public class Problem3 {
-    public static void findLongestStreak(String signalLog) {
-        if (signalLog == null || signalLog.isEmpty()) {
-            System.out.println("No signal data provided");
-            return;
-        }
+public class Problem3{
 
-        char longestChar = signalLog.charAt(0);
-        int longestLength = 1;
+    static void findLongestStreak(String signalLog) {
 
-        char currentChar = signalLog.charAt(0);
-        int currentLength = 1;
+        char longestColor = signalLog.charAt(0);
+
+        int longest = 1;
+        int current = 1;
 
         for (int i = 1; i < signalLog.length(); i++) {
-            if (signalLog.charAt(i) == currentChar) {
-                currentLength++;
+
+            if (signalLog.charAt(i) == signalLog.charAt(i - 1)) {
+                current++;
             } else {
-                currentChar = signalLog.charAt(i);
-                currentLength = 1;
+                current = 1;
             }
 
-            if (currentLength > longestLength) {
-                longestLength = currentLength;
-                longestChar = currentChar;
+            if (current > longest) {
+                longest = current;
+                longestColor = signalLog.charAt(i);
             }
         }
 
-        System.out.println("Longest Streak: '" + longestChar + "' repeated " + longestLength + " times");
+        System.out.println("Longest Streak: '" + longestColor + "' repeated " + longest + " times");
+    }
+
+    public static void main(String[] args) {
+
+        findLongestStreak("RRGGGYRR");
     }
 }
